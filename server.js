@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 // раздача статики
 const server = http.createServer((req, res) => {
   const file = req.url === '/' ? '/index.html' : req.url.split('?')[0];
-  const full = path.join(__dirname, 'public', file);
+  const full = path.join(__dirname, 'public', file.replace(/^\//, ''));
   fs.readFile(full, (err, data) => {
     if (err) { res.writeHead(404); res.end('not found'); return; }
     const ext = path.extname(full);
